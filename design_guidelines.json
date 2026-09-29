@@ -1,0 +1,195 @@
+{
+  "project_name": "LuxuryCharterKings",
+  "archetype": "ORGANIC_LUXURY_BOTANICAL",
+  "theme": {
+    "color_palette": {
+      "botanical_dark": "#0D1C16",
+      "botanical_green": "#1A2E26",
+      "deep_sage": "#2C4035",
+      "soft_sage": "#A3B899",
+      "warm_sand": "#EAE3D2",
+      "warm_sand_light": "#F5F0EB",
+      "stone": "#D3CBC2",
+      "stone_dark": "#8A847C",
+      "copper_accent": "#C87D55",
+      "copper_hover": "#B36B45",
+      "border_muted": "rgba(163, 184, 153, 0.2)",
+      "card_surface": "rgba(26, 46, 38, 0.6)",
+      "glass_overlay": "rgba(13, 28, 22, 0.75)"
+    },
+    "typography": {
+      "heading_font": "Cormorant Garamond, Serif",
+      "body_font": "Manrope, sans-serif",
+      "mono_font": "JetBrains Mono, monospace",
+      "scale": {
+        "h1": "text-4xl sm:text-5xl lg:text-6xl font-serif tracking-tight leading-tight",
+        "h2": "text-2xl sm:text-3xl lg:text-4xl font-serif tracking-normal leading-snug",
+        "h3": "text-xl sm:text-2xl font-serif tracking-normal",
+        "h4": "text-lg sm:text-xl font-medium tracking-wide",
+        "eyebrow": "text-xs uppercase tracking-[0.25em] text-soft_sage font-medium",
+        "body": "text-base leading-relaxed text-stone/90",
+        "body_sm": "text-sm leading-normal text-stone/70"
+      }
+    },
+    "anti_patterns": [
+      "NO traditional black-and-gold luxury gradients",
+      "NO Helicopters or Hotels categories anywhere on the site",
+      "NO Buy/For Sale/Dealer/Seller/Purchase terminology (Rental & Charter only)",
+      "NO standard Vercel/Stripe blue or neon accents",
+      "NO fully transparent navigation bars over content without backdrop blur"
+    ]
+  },
+  "navigation": {
+    "brand_logo": "LuxuryCharterKings",
+    "primary_links": [
+      { "label": "Private Jets", "path": "/jets", "test_id": "nav-private-jets" },
+      { "label": "Luxury Yachts", "path": "/yachts", "test_id": "nav-luxury-yachts" },
+      { "label": "Luxury Cars", "path": "/cars", "test_id": "nav-luxury-cars" },
+      { "label": "Tour Experience", "path": "/tours", "test_id": "nav-tour-experience" },
+      { "label": "Villas", "path": "/villas", "test_id": "nav-villas" },
+      { "label": "VIP", "path": "/vip", "test_id": "nav-vip" }
+    ],
+    "right_action_links": [
+      { "label": "Concierge", "action": "open_chat", "test_id": "nav-concierge-trigger" },
+      { "label": "Sign In", "path": "/signin", "test_id": "nav-sign-in" }
+    ],
+    "header_style": "fixed top-0 w-full z-50 backdrop-blur-xl bg-[#0D1C16]/80 border-b border-[#A3B899]/15 px-6 lg:px-12 py-4"
+  },
+  "homepage_structure": {
+    "hero": {
+      "headline": "Travel, arranged differently.",
+      "subheadline": "Bespoke charters, curated supercars, private sanctuaries, and non-stop global concierge assistance.",
+      "hero_image": "https://images.unsplash.com/photo-1768346564210-f382cdf18375?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "cta_primary": { "label": "Explore Collection", "action": "scroll_to_grid", "test_id": "hero-cta-explore" },
+      "cta_secondary": { "label": "Speak with Concierge", "action": "open_chat", "test_id": "hero-cta-concierge" }
+    },
+    "collection_grid": {
+      "layout_mode": "TETRIS_ASYNCHRONOUS_BENTO",
+      "categories": [
+        {
+          "id": "jets",
+          "name": "Private Jets",
+          "tagline": "Ultra long-range cabin comfort & transcontinental agility",
+          "col_span": "col-span-12 md:col-span-8",
+          "image": "https://images.unsplash.com/photo-1768346564233-d71f37bd19b6?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "test_id": "category-card-jets"
+        },
+        {
+          "id": "yachts",
+          "name": "Luxury Yachts",
+          "tagline": "Superyacht charters with full crew in the Mediterranean & Caribbean",
+          "col_span": "col-span-12 md:col-span-4",
+          "image": "https://images.unsplash.com/photo-1759135695910-0a6aaaab6b14?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "test_id": "category-card-yachts"
+        },
+        {
+          "id": "cars",
+          "name": "Luxury Cars & Motor Homes",
+          "tagline": "Chauffeur or self-drive luxury SUVs, supercars, and land yachts",
+          "col_span": "col-span-12 md:col-span-4",
+          "image": "https://images.unsplash.com/photo-1679506640590-f0152786dff0?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "test_id": "category-card-cars"
+        },
+        {
+          "id": "villas",
+          "name": "Private Villas",
+          "tagline": "Secluded coastal estates & alpine sanctuaries with private staff",
+          "col_span": "col-span-12 md:col-span-8",
+          "image": "https://images.unsplash.com/photo-1613977257363-707ba9348227?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "test_id": "category-card-villas"
+        },
+        {
+          "id": "tours",
+          "name": "Tour Experiences",
+          "tagline": "Tailored expeditions, private island escapes & wine country fly-ins",
+          "col_span": "col-span-12 md:col-span-6",
+          "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "test_id": "category-card-tours"
+        },
+        {
+          "id": "vip",
+          "name": "VIP Concierge",
+          "tagline": "24/7 priority access, security detailing & custom itineraries",
+          "col_span": "col-span-12 md:col-span-6",
+          "image": "https://images.unsplash.com/photo-1661954864180-e61dea14208a?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "test_id": "category-card-vip"
+        }
+      ]
+    }
+  },
+  "cars_rental_spec": {
+    "focus": "EXCLUSIVE_RENTALS_ONLY",
+    "subcategories": ["SUV / Executive", "Supercars", "Motor Homes / Land Yachts", "Chauffeur Sedans"],
+    "required_card_fields": [
+      "Vehicle Name (e.g., Range Rover Autobiography)",
+      "Location (e.g., Dubai, Côte d'Azur, Monaco, Aspen)",
+      "Passenger Capacity (e.g., 5 Passengers)",
+      "Pricing (e.g., From $1,200/day or Request Quote)",
+      "Chauffeur Option (Self-Drive vs Chauffeur Available)",
+      "CTA: 'View Vehicle'"
+    ],
+    "filtering_capabilities": [
+      "Rental Duration (Daily, Multi-Day, Weekly)",
+      "Location Selector",
+      "Subcategory Filter (including Motor Homes)",
+      "Chauffeur Service toggle"
+    ]
+  },
+  "listing_pages": {
+    "components": [
+      "Hero Gallery with Lightbox",
+      "Listing Name & Subtitle",
+      "Location & Key Specs Grid (Passenger count, Speed/Range, Crew/Chauffeur status, Transmission/Type)",
+      "Short Editorial Description",
+      "Pricing & Rates Breakdown (Daily / Weekly / Custom Quote)",
+      "Date Range / Availability Selector",
+      "Primary CTA: 'Request to Book' (opens request modal)",
+      "Secondary CTA: 'Chat with Concierge' (opens concierge chat linked to listing id)",
+      "Included Luxury Services List"
+    ]
+  },
+  "concierge_chat": {
+    "type": "FLOATING_LIVE_CONCIERGE_CHAT",
+    "trigger_test_id": "floating-concierge-chat-button",
+    "features": [
+      "Persistent bottom-right floating badge with live agent avatar",
+      "Context-aware pre-filled messages (referencing current listing)",
+      "Real customer-to-admin message log state",
+      "Simulated immediate luxury response flow",
+      "Bespoke request form integration within chat drawer"
+    ]
+  },
+  "image_urls": {
+    "jets": [
+      "https://images.unsplash.com/photo-1768346564233-d71f37bd19b6?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "https://images.unsplash.com/photo-1768346564210-f382cdf18375?crop=entropy&cs=srgb&fm=jpg&q=85"
+    ],
+    "yachts": [
+      "https://images.unsplash.com/photo-1759135695910-0a6aaaab6b14?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "https://images.unsplash.com/photo-1598737285721-29346a5c9278?crop=entropy&cs=srgb&fm=jpg&q=85"
+    ],
+    "cars": [
+      "https://images.unsplash.com/photo-1679506640590-f0152786dff0?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "https://images.unsplash.com/photo-1638686302275-0e87df720aca?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "https://images.unsplash.com/photo-1549632891-a0bea6d0355b?crop=entropy&cs=srgb&fm=jpg&q=85"
+    ],
+    "villas": [
+      "https://images.unsplash.com/photo-1613977257363-707ba9348227?crop=entropy&cs=srgb&fm=jpg&q=85"
+    ],
+    "tours": [
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?crop=entropy&cs=srgb&fm=jpg&q=85"
+    ],
+    "vip": [
+      "https://images.unsplash.com/photo-1661954864180-e61dea14208a?crop=entropy&cs=srgb&fm=jpg&q=85"
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Ensure ALL React component files are .js/.jsx as appropriate in the codebase",
+    "Implement the exact color variables in index.css and tailwind.config.js for deep botanical green, soft sage, warm sand, stone, and copper",
+    "Never add Helicopter or Hotel menu items or cards anywhere in the app",
+    "Never use sales words like 'Buy Now', 'For Sale', or 'Dealer' on Luxury Cars or any other section; strictly use 'Rental', 'Daily Rate', 'Request to Book', 'Charter'",
+    "Add data-testid to every interactive element (buttons, links, form fields, chat toggles, cards)",
+    "Implement the live Concierge chat widget as a global floating overlay accessible from any page",
+    "Use Lucide-react icons for luxury specs (Users, Compass, Shield, Key, Clock, MapPin, Sparkles, MessageSquare)"
+  ]
+}
