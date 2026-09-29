@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { MapPin, Check, MessageCircle, ArrowLeft, Crown, Truck, FileText } from "lucide-react";
+import { MapPin, Check, MessageCircle, ArrowLeft, Crown, Truck, FileText, CalendarDays } from "lucide-react";
 import api, { priceLabel, mediaUrl, vipPrice, waLink, waMessageFor } from "@/lib/api";
 import { useConcierge } from "@/context/ConciergeContext";
 import { useAuth } from "@/context/AuthContext";
 import { useSettings } from "@/context/SettingsContext";
 import { RequestModal } from "@/components/RequestModal";
+import { Calendar } from "@/components/ui/calendar";
+
+const fmt = (d) => (d ? new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10) : "");
 
 export default function ListingDetail() {
   const { slug } = useParams();
@@ -17,6 +20,7 @@ export default function ListingDetail() {
   const [notFound, setNotFound] = useState(false);
   const [active, setActive] = useState(0);
   const [modal, setModal] = useState(null); // 'book' | 'quote'
+  const [range, setRange] = useState(undefined);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -100,6 +104,25 @@ export default function ListingDetail() {
               </div>
             </div>
 
+            {/* Availability calendar — always open */}
+            <div data-testid="availability-calendar" className="mt-8 bg-white rounded-lg border border-[#1A2E26]/10 p-5">
+              <div className="flex items-center justify-between mb-3">
+                <p className="eyebrow text-[#C87D55] flex items-center gap-2"><CalendarDays size={14} /> Availability</p>
+                <span className="flex items-center gap-2 text-xs text-[#2C4035]"><span className="h-2.5 w-2.5 rounded-full bg-[#A3B899]" /> Open for booking</span>
+              </div>
+              <Calendar
+                mode="range"
+                selected={range}
+                onSelect={setRange}
+                numberOfMonths={1}
+                disabled={{ before: new Date() }}
+                className="w-full"
+              />
+              <p className="text-xs text-[#8A847C] mt-2">
+                {range?.from ? `Selected: ${fmt(range.from)}${range.to ? ` → ${fmt(range.to)}` : ""}` : "Every open date is available — select your dates to request a booking."}
+              </p>
+            </div>
+
             {/* CTAs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
               <button data-testid="request-to-book" onClick={() => setModal("book")} className="py-4 bg-[#1A2E26] text-[#EAE3D2] text-sm tracking-wide rounded-md hover:bg-[#2C4035] transition-colors">Request to Book</button>
@@ -150,7 +173,7 @@ export default function ListingDetail() {
       </div>
 
       <div className="h-24" />
-      {modal && <RequestModal listing={listing} mode={modal} onClose={() => setModal(null)} />}
+      {modal && <RequestModal listing={listing} mode={modal} initialStart={fmt(range?.from)} initialEnd={fmt(range?.to)} onClose={() => setModal(null)} />}
     </div>
   );
 }

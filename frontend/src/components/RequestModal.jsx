@@ -4,12 +4,12 @@ import api, { formatApiErrorDetail } from "@/lib/api";
 import { toast } from "sonner";
 
 // Multi-step request modal: (cars) Dates -> Requirements -> Details ; else Details only
-export function RequestModal({ listing, mode = "book", onClose }) {
+export function RequestModal({ listing, mode = "book", onClose, initialStart = "", initialEnd = "" }) {
   const isCars = listing.category === "cars";
   const steps = isCars ? ["dates", "requirements", "details"] : ["details"];
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
-    full_name: "", email: "", phone: "", start_date: "", end_date: "",
+    full_name: "", email: "", phone: "", start_date: initialStart, end_date: initialEnd,
     destination: listing.location || "", guests: "", duration: (listing.rental_durations || ["Daily"])[0],
     chauffeur: false, requirements: [], message: "",
   });
