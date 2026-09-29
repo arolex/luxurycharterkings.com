@@ -15,6 +15,10 @@ export const Footer = () => {
               Bespoke charters, curated supercars, private sanctuaries and non-stop global concierge assistance.
               Travel, arranged differently.
             </p>
+            <address className="not-italic mt-6 text-sm text-[#A3B899] leading-relaxed" data-testid="footer-address">
+              1110 Brickell Avenue, Suite 450<br />
+              Miami, FL 33131
+            </address>
           </div>
           <div>
             <p className="eyebrow text-[#C87D55] mb-5">Collection</p>

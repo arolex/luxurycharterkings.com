@@ -21,7 +21,7 @@ export default function Home() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [featured, setFeatured] = useState([]);
-  const [search, setSearch] = useState({ experience: "jets", destination: "", dates: "" });
+  const [search, setSearch] = useState({ experience: "jets", pickup: "", destination: "", dates: "" });
   const gridRef = useRef(null);
 
   useEffect(() => {
@@ -34,7 +34,9 @@ export default function Home() {
   const runSearch = (e) => {
     e.preventDefault();
     const params = new URLSearchParams();
-    if (search.destination) params.set("location", search.destination);
+    const loc = search.destination || search.pickup;
+    if (loc) params.set("location", loc);
+    if (search.pickup) params.set("pickup", search.pickup);
     if (search.dates) params.set("dates", search.dates);
     navigate(`/${search.experience}?${params.toString()}`);
   };
@@ -65,12 +67,16 @@ export default function Home() {
 
       {/* Discovery search */}
       <section className="relative z-10 mx-auto max-w-[1200px] px-5 lg:px-10 -mt-16">
-        <form onSubmit={runSearch} data-testid="discovery-search" className="bg-white rounded-2xl shadow-2xl border border-[#1A2E26]/8 p-4 md:p-5 grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 items-end">
+        <form onSubmit={runSearch} data-testid="discovery-search" className="bg-white rounded-2xl shadow-2xl border border-[#1A2E26]/8 p-4 md:p-5 grid grid-cols-1 md:grid-cols-5 gap-3 md:gap-4 items-end">
           <div className="flex flex-col gap-1.5">
             <label className="text-[11px] uppercase tracking-wide text-[#8A847C]">Experience</label>
             <select data-testid="search-experience" value={search.experience} onChange={(e) => setSearch({ ...search, experience: e.target.value })} className="px-4 py-3 rounded-md bg-[#F5F0EB] border border-[#1A2E26]/10 text-sm focus:outline-none focus:border-[#C87D55]">
               {EXPERIENCES.map((x) => <option key={x.id} value={x.id}>{x.label}</option>)}
             </select>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-[11px] uppercase tracking-wide text-[#8A847C]">Pick-up</label>
+            <input data-testid="search-pickup" placeholder="City or terminal" value={search.pickup} onChange={(e) => setSearch({ ...search, pickup: e.target.value })} className="px-4 py-3 rounded-md bg-[#F5F0EB] border border-[#1A2E26]/10 text-sm focus:outline-none focus:border-[#C87D55]" />
           </div>
           <div className="flex flex-col gap-1.5">
             <label className="text-[11px] uppercase tracking-wide text-[#8A847C]">Destination</label>
