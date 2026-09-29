@@ -691,14 +691,19 @@ async def admin_conv_status(conv_id: str, body: StatusIn, admin: dict = Depends(
 # ------------------------------------------------------------------ admin customers + stats
 @api.get("/admin/customers")
 async def admin_customers(admin: dict = Depends(require_admin)):
-    users = await db.users.find({"role": "customer"}).sort("created_at", -1).to_list(1000)
-    out = []
-    for u in users:
-        out.append({"id": str(u["_id"]), "email": u["email"], "name": u.get("name", ""),
-                    "phone": u.get("phone", ""), "vip": u.get("vip", False),
-                    "requests": await db.booking_requests.count_documents({"user_id": str(u["_id"])}),
-                    "created_at": u.get("created_at").isoformat() if isinstance(u.get("created_at"), datetime) else u.get("created_at")})
-    return out
+    pipeline = [
+        {"$match": {"role": "customer"}},
+        {"$sort": {"created_at": -1}},
+        {"$limit": 1000},
+        {"$addFields": {"_id_str": {"$toString": "$_id"}}},
+        {"$lookup": {"from": "booking_requests", "localField": "_id_str", "foreignField": "user_id", "as": "reqs"}},
+        {"$addFields": {"requests": {"$size": "$reqs"}}},
+    ]
+    users = await db.users.aggregate(pipeline).to_list(1000)
+    return [{"id": str(u["_id"]), "email": u["email"], "name": u.get("name", ""),
+             "phone": u.get("phone", ""), "vip": u.get("vip", False), "requests": u.get("requests", 0),
+             "created_at": u.get("created_at").isoformat() if isinstance(u.get("created_at"), datetime) else u.get("created_at")}
+            for u in users]
 
 
 @api.get("/admin/vip-members")
@@ -735,7 +740,13 @@ async def list_bookings_legacy(admin: dict = Depends(require_admin)):
 
 app.include_router(api)
 
-app.add_middleware(CORSMiddleware, allow_origins=[FRONTEND_URL, "http://localhost:3000"],
+# Allow the app's own env origin, localhost, and any Emergent preview/production domain
+# (credentialed CORS cannot use "*", so we combine an explicit list with a domain regex).
+CORS_REGEX = os.environ.get("CORS_ORIGIN_REGEX") or r"https://.*\.(emergent\.host|emergentagent\.com)"
+_extra = [o.strip() for o in os.environ.get("CORS_ORIGINS", "").split(",") if o.strip() and o.strip() != "*"]
+app.add_middleware(CORSMiddleware,
+                   allow_origins=list({FRONTEND_URL, "http://localhost:3000", *_extra}),
+                   allow_origin_regex=CORS_REGEX,
                    allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 
