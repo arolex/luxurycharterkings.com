@@ -392,8 +392,9 @@ async def add_message(conv_id: str, body: MessageIn):
     if not conv:
         raise HTTPException(status_code=404, detail="Conversation not found")
     now = datetime.now(timezone.utc).isoformat()
+    # Public endpoint: always a customer message. Admin replies use the admin route (next phase).
     msg = {"id": str(uuid.uuid4()), "conversation_id": conv_id,
-           "sender": "customer" if body.sender != "admin" else "admin", "body": body.body, "created_at": now}
+           "sender": "customer", "body": body.body, "created_at": now}
     await db.messages.insert_one({**msg})
     await db.conversations.update_one({"id": conv_id}, {"$set": {"updated_at": now, "status": "open"}})
     return msg
